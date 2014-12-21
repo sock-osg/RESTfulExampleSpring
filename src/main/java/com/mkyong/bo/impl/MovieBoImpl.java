@@ -1,11 +1,12 @@
 package com.mkyong.bo.impl;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Service;
 
 import com.mkyong.bo.MoviesBo;
-import com.mkyong.dto.MovieDto;
+import com.mkyong.response.MovieRS;
 
 /**
  * 
@@ -14,13 +15,16 @@ import com.mkyong.dto.MovieDto;
  */
 @Service
 public class MovieBoImpl implements MoviesBo {
-
+	
 	@Override
-	public MovieDto getInfoMovie(final String request) {
-		MovieDto movie = new MovieDto();
+	public MovieRS getInfoMovie(final int request) {
+		MovieRS movie = new MovieRS();
 		
 		try {
-			TimeUnit.SECONDS.sleep(3);
+			Random random = new Random();
+			int sleep = random.nextInt(10);
+			System.out.printf("Sleeping for %d seconds.\n", sleep);
+			TimeUnit.SECONDS.sleep(sleep);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

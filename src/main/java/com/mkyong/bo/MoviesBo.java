@@ -1,6 +1,6 @@
 package com.mkyong.bo;
 
-import com.mkyong.dto.MovieDto;
+import com.mkyong.response.MovieRS;
 
 /**
  * 
@@ -9,6 +9,6 @@ import com.mkyong.dto.MovieDto;
  */
 public interface MoviesBo {
 	
-	MovieDto getInfoMovie(String request);
+	MovieRS getInfoMovie(int request);
 	
 }

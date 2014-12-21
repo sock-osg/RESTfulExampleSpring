@@ -5,7 +5,9 @@ package com.mkyong.facade;
 
 import java.util.List;
 
-import com.mkyong.dto.MovieDto;
+import com.mkyong.exception.MyCustomException;
+import com.mkyong.request.InfoMovieRQ;
+import com.mkyong.response.MovieRS;
 
 /**
  * 
@@ -14,6 +16,8 @@ import com.mkyong.dto.MovieDto;
  */
 public interface MoviesFacade {
 
-	List<MovieDto> getInfoMovie(String request);
+	List<MovieRS> getInfoMovie(int request) throws MyCustomException;
+	
+	List<MovieRS> getInfoMovie(InfoMovieRQ request) throws MyCustomException;
 
 }

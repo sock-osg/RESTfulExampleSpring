@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<contextName>com.mkyong.RESTfulExampleSpring-1.0</contextName>
+	<jmxConfigurator />
+
+	<!-- <conversionRule conversionWord="sequence" converterClass="com.lan.core.util.layout.LANConverter" /> -->
+	
+	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date{yyyy/MM/dd HH:mm:ss.SSS} level=%level line=%line : %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>~/apps/logs/RESTfulExampleSpring-1.0.log</file>
+		
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>~/apps/logs/RESTfulExampleSpring-1.0.%i.log.gz</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>7</maxIndex>
+		</rollingPolicy>
+		
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>512MB</maxFileSize>
+		</triggeringPolicy>
+
+		<encoder>
+			<pattern>%date{yyyy/MM/dd HH:mm:ss.SSS} level=%level line=%line : %msg</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.mkyong" level="INFO,ERROR" />
+
+	<root level="INFO,ERROR">
+<!-- 		<appender-ref ref="consoleAppender" /> -->
+		<appender-ref ref="consoleAppender" />
+	</root>
+</configuration>

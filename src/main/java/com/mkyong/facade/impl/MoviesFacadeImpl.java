@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mkyong.bo.MoviesBo;
-import com.mkyong.dto.MovieDto;
+import com.mkyong.exception.MyCustomException;
 import com.mkyong.facade.MoviesFacade;
+import com.mkyong.request.InfoMovieRQ;
+import com.mkyong.response.MovieRS;
 
 /**
  * 
@@ -25,18 +27,27 @@ public class MoviesFacadeImpl implements MoviesFacade {
 	private MoviesBo boMovies;
 	
 	@Override
-	public List<MovieDto> getInfoMovie(final String request) {
-		List<MovieDto> movies = new ArrayList<>();
+	public List<MovieRS> getInfoMovie(InfoMovieRQ request) throws MyCustomException {
+		return this.getInfoMovie(request.getIdRequest());
+	}
+	
+	@Override
+	public List<MovieRS> getInfoMovie(final int request) throws MyCustomException {
+		if (request == 500) {
+			throw new MyCustomException();
+		}
 		
-		AsyncMoviesBo asyncMovie1 = new AsyncMoviesBo(this.boMovies, request + "-1");
+		List<MovieRS> movies = new ArrayList<>();
+		
+		AsyncMoviesBo asyncMovie1 = new AsyncMoviesBo(this.boMovies, request);
 		Thread threadMovie1 = new Thread(asyncMovie1);
-		AsyncMoviesBo asyncMovie2 = new AsyncMoviesBo(this.boMovies, request + "-2");
+		AsyncMoviesBo asyncMovie2 = new AsyncMoviesBo(this.boMovies, request);
 		Thread threadMovie2 = new Thread(asyncMovie2);
-		AsyncMoviesBo asyncMovie3 = new AsyncMoviesBo(this.boMovies, request + "-3");
+		AsyncMoviesBo asyncMovie3 = new AsyncMoviesBo(this.boMovies, request);
 		Thread threadMovie3 = new Thread(asyncMovie3);
-		AsyncMoviesBo asyncMovie4 = new AsyncMoviesBo(this.boMovies, request + "-4");
+		AsyncMoviesBo asyncMovie4 = new AsyncMoviesBo(this.boMovies, request);
 		Thread threadMovie4 = new Thread(asyncMovie4);
-		AsyncMoviesBo asyncMovie5 = new AsyncMoviesBo(this.boMovies, request + "-5");
+		AsyncMoviesBo asyncMovie5 = new AsyncMoviesBo(this.boMovies, request);
 		Thread threadMovie5 = new Thread(asyncMovie5);
 		
 		threadMovie1.start();
@@ -66,11 +77,11 @@ public class MoviesFacadeImpl implements MoviesFacade {
 	private class AsyncMoviesBo implements Runnable {
 		
 		private MoviesBo boMovies;
-		private MovieDto result;
-		private String request;
+		private MovieRS result;
+		private int request;
 		
 		/** Crea una nueva instancia de la clase. */
-		public AsyncMoviesBo(MoviesBo boMovies, String request) {
+		public AsyncMoviesBo(MoviesBo boMovies, int request) {
 			super();
 			this.boMovies = boMovies;
 			this.request = request;
@@ -81,7 +92,7 @@ public class MoviesFacadeImpl implements MoviesFacade {
 			this.result = this.boMovies.getInfoMovie(this.request);
 		}
 		
-		public MovieDto getResult() {
+		public MovieRS getResult() {
 			return this.result;
 		}
 		

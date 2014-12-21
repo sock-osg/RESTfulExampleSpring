@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.mkyong.dto;
+package com.mkyong.response;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -14,14 +14,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MovieDto {
+public class MovieRS {
 
 	private String name;
 	private String director;
 	private int year;
 
 	/** Crea una nueva instancia de la clase. */
-	public MovieDto() {
+	public MovieRS() {
 		super();
 	}
 
